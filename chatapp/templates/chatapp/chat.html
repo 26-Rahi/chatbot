@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .chat-box { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Real Estate Chatbot</h2>
+
+    <form method="post" style="display:inline;">
+        {% csrf_token %}
+        <input type="text" name="user_input" placeholder="Ask a question..." style="width: 70%;" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <form method="post" action="{% url 'chatapp:clear_chat' %}" style="display:inline; margin-left: 10px;">
+    {% csrf_token %}
+    <button type="submit">Clear Chat</button>
+    </form>
+
+    <hr>
+    <div>
+        {% for user, bot in chat_history %}
+            <div class="chat-box">
+                <strong>You:</strong> {{ user }}<br>
+                <strong>Bot:</strong> {{ bot }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
